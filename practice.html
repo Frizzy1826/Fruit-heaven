@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - Fruity Haven</title>
+    <meta name="description" content="Create an account with Fruity Haven" />
+    <meta name="author" content="Fruity Haven" />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <h1>Fruity Haven</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for fruits...">
+        <button class="search-button">🔍</button>
+      </div>
+
+      <div class="nav-menu">
+        <div id="menu-toggle">
+          <input type="checkbox" id="checkbox">
+          <label for="checkbox" class="toggle">
+            <div class="bars" id="bar1"></div>
+            <div class="bars" id="bar2"></div>
+            <div class="bars" id="bar3"></div>
+          </label>
+
+          <div class="menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Log Out</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="nav-icons">
+          <div class="icon-container">
+            <span class="icon notification-icon" onclick="toggleNotifications()">🔔</span>
+            <span class="badge notification-badge" id="notification-count">0</span>
+            <div class="notification-panel" id="notification-panel">
+              <h3>Notifications</h3>
+              <div id="notifications-list">
+                <!-- Notifications will be added here dynamically -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="icon-container">
+            <span class="icon cart-icon" onclick="toggleCart()">🛒</span>
+            <span class="badge cart-badge" id="cart-count">0</span>
+          </div>
+          
+          <span class="icon account-icon" onclick="toggleLogin()">👤</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Registration Form Container -->
+    <div class="register-container">
+      <div class="register-form">
+        <h2>Create an Account</h2>
+        <p class="form-subtitle">Join Fruity Haven to enjoy exclusive offers and faster checkout.</p>
+        
+        <form id="register-form" onsubmit="return register(event)">
+          <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" required>
+            <small class="password-hint">Password must be at least 8 characters long</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" required>
+          </div>
+          
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to the <a href="#">Terms and Conditions</a></label>
+          </div>
+          
+          <button type="submit" class="register-btn">Create Account</button>
+        </form>
+        
+        <p class="login-link">Already have an account? <a href="#" onclick="toggleLogin()">Login</a></p>
+      </div>
+      
+      <div class="register-image">
+        <img src="https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fresh Fruits">
+        <div class="register-overlay">
+          <h3>Fresh Fruits Delivered to Your Doorstep</h3>
+          <p>Join thousands of happy customers enjoying our farm-fresh produce.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Modal (keeping the same from index.html) -->
+    <div class="login-modal" id="login-modal">
+      <div class="login-content">
+        <span class="close-btn" onclick="toggleLogin()">✖</span>
+        <h2>Login</h2>
+        <form id="login-form" onsubmit="return login(event)">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+          </div>
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+        <p class="register-link">Don't have an account? <a href="register.html">Register</a></p>
+      </div>
+    </div>
+
+    <!-- Cart Panel (same as index.html) -->
+    <div class="cart-panel" id="cart-panel">
+      <div class="cart-header">
+        <h2>Shopping Cart</h2>
+        <span class="close-btn" onclick="toggleCart()">✖</span>
+      </div>
+      <div id="cart-items">
+        <!-- Cart items will be added here dynamically -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total:</span>
+          <span id="cart-total-price">$0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">Checkout</button>
+        <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+      </div>
+    </div>
+
+    <!-- Overlay for modals -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="src/script.js"></script>
+    <script>
+      // Additional registration-specific JavaScript
+      function register(event) {
+        event.preventDefault();
+        
+        const fullname = document.getElementById('fullname').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const terms = document.getElementById('terms').checked;
+        
+        // Simple validation
+        if (!terms) {
+          showToast('Please agree to the Terms and Conditions');
+          return false;
+        }
+        
+        if (password.length < 8) {
+          showToast('Password must be at least 8 characters long');
+          return false;
+        }
+        
+        if (password !== confirmPassword) {
+          showToast('Passwords do not match');
+          return false;
+        }
+        
+        // In a real app, this would send data to a server
+        // Here we'll just simulate success and store in localStorage
+        const newUser = {
+          name: fullname,
+          email: email,
+          password: password // Note: In a real app, never store plain text passwords
+        };
+        
+        // Store in localStorage (just for demo purposes)
+        localStorage.setItem('registeredUser', JSON.stringify(newUser));
+        
+        // Show success message
+        showToast('Registration successful! You can now log in.');
+        
+        // Redirect to login
+        setTimeout(() => {
+          window.location.href = 'index.html';
+          toggleLogin(); // Open login modal
+        }, 2000);
+        
+        return false;
+      }
+    </script>
+  </body>
+</html>

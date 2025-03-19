@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fruity Haven</title>
+    <meta name="description" content="Fresh fruits delivered to your doorstep" />
+    <meta name="author" content="Fruity Haven" />
+    <meta property="og:image" content="/og-image.png" />
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <h1>Fruity Haven</h1>
+      </div>
+      
+      <div class="search-container">
+        <input type="text" class="search-bar" placeholder="Search for fruits...">
+        <button class="search-button">🔍</button>
+      </div>
+
+      <div class="nav-menu">
+        <div id="menu-toggle">
+          <input type="checkbox" id="checkbox">
+          <label for="checkbox" class="toggle">
+            <div class="bars" id="bar1"></div>
+            <div class="bars" id="bar2"></div>
+            <div class="bars" id="bar3"></div>
+          </label>
+
+          <!-- Hidden menu that appears when checkbox is checked -->
+          <div class="menu">
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Log Out</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="nav-icons">
+          <div class="icon-container">
+            <span class="icon notification-icon" onclick="toggleNotifications()">🔔</span>
+            <span class="badge notification-badge" id="notification-count">0</span>
+            <!-- Notification panel -->
+            <div class="notification-panel" id="notification-panel">
+              <h3>Notifications</h3>
+              <div id="notifications-list">
+                <!-- Notifications will be added here dynamically -->
+              </div>
+            </div>
+          </div>
+          
+          <div class="icon-container">
+            <span class="icon cart-icon" onclick="toggleCart()">🛒</span>
+            <span class="badge cart-badge" id="cart-count">0</span>
+          </div>
+          
+          <span class="icon account-icon" onclick="toggleLogin()">👤</span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="category-filter">
+      <h2>Categories</h2>
+      <div class="filter-options">
+        <div class="filter-group">
+          <h3>Season</h3>
+          <select id="season-filter" onchange="filterFruits()">
+            <option value="all">All Seasons</option>
+            <option value="spring">Spring</option>
+            <option value="summer">Summer</option>
+            <option value="fall">Fall</option>
+            <option value="winter">Winter</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <h3>Sort By</h3>
+          <select id="sort-filter" onchange="filterFruits()">
+            <option value="name-asc">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+            <option value="price-low">Price (Low to High)</option>
+            <option value="price-high">Price (High to Low)</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <h3>Trending</h3>
+          <input type="checkbox" id="trending-filter" onchange="filterFruits()">
+          <label for="trending-filter">Show Trending Only</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="fruit-list" id="fruit-container">
+      <!-- Fruits will be added here dynamically by JavaScript -->
+    </div>
+
+    <!-- Shopping Cart Panel -->
+    <div class="cart-panel" id="cart-panel">
+      <div class="cart-header">
+        <h2>Shopping Cart</h2>
+        <span class="close-btn" onclick="toggleCart()">✖</span>
+      </div>
+      <div id="cart-items">
+        <!-- Cart items will be added here dynamically -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total:</span>
+          <span id="cart-total-price">$0.00</span>
+        </div>
+        <button class="checkout-btn" onclick="checkout()">Checkout</button>
+        <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="login-modal">
+      <div class="login-content">
+        <span class="close-btn" onclick="toggleLogin()">✖</span>
+        <h2>Login</h2>
+        <form id="login-form" onsubmit="return login(event)">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+          </div>
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+        <p class="register-link">Don't have an account? <a href="practice.html">Register</a></p>
+      </div>
+    </div>
+
+    <!-- Overlay for modals -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
